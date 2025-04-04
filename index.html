@@ -19,52 +19,50 @@
 
 <body>
     <script>
-async function getAndPlayTWCTracks() {
-  const proxy = "https://corsproxy.io/?";
-  const targetUrl = "https://twcclassics.com/audio/artists-b.html";
+document.addEventListener("click", function handleClick() {
+  document.removeEventListener("click", handleClick); // Only run once
 
-  try {
-    const response = await fetch(proxy + encodeURIComponent(targetUrl));
-    const html = await response.text();
+  async function getAndPlayTWCTracks() {
+    const proxy = "https://corsproxy.io/?";
+    const targetUrl = "https://twcclassics.com/audio/artists-b.html";
 
-    // Create a dummy element to parse the HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+    try {
+      const response = await fetch(proxy + encodeURIComponent(targetUrl));
+      const html = await response.text();
 
-    // Get all <a> tags with href ending in .mp3
-    const links = Array.from(doc.querySelectorAll("a"))
-      .map(a => a.href)
-      .filter(href => href.endsWith(".mp3"));
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
 
-    if (links.length === 0) {
-      console.error("No MP3 links found.");
-      return;
+      const links = Array.from(doc.querySelectorAll("a"))
+        .map(a => a.href)
+        .filter(href => href.endsWith(".mp3"));
+
+      if (links.length === 0) {
+        console.error("No MP3 links found.");
+        return;
+      }
+
+      const audio = new Audio();
+      audio.volume = 0.6;
+
+      const playRandom = () => {
+        const randomTrack = links[Math.floor(Math.random() * links.length)];
+        console.log("Playing:", randomTrack);
+        audio.src = randomTrack;
+        audio.play().catch(err => console.error("Playback failed:", err));
+      };
+
+      audio.addEventListener("ended", playRandom);
+      playRandom();
+    } catch (err) {
+      console.error("Error fetching or playing tracks:", err);
     }
-
-    // Create audio element
-    const audio = new Audio();
-    audio.volume = 0.7;
-
-    // Function to play a random track
-    const playRandom = () => {
-      const randomTrack = links[Math.floor(Math.random() * links.length)];
-      console.log("Playing:", randomTrack);
-      audio.src = randomTrack;
-      audio.play();
-    };
-
-    // When one track ends, play another
-    audio.addEventListener("ended", playRandom);
-
-    // Start the loop
-    playRandom();
-  } catch (err) {
-    console.error("Error fetching or playing tracks:", err);
   }
-}
 
-getAndPlayTWCTracks();
+  getAndPlayTWCTracks();
+});
 </script>
+
     
     <!-- The Current Conditions Section.  -->
     <div class="container">
