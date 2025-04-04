@@ -36,13 +36,13 @@ var lat = "30.4213354" // Latitude. You can head over to www.google.com/maps/ an
  */
 
         // Misc Configuration
-var locationn =  "Pensacola" // Your Location. Leave Blank for autolocation.
+var locationn =  "" // Your Location. Leave Blank for autolocation.
 var forecastlocation = `Pensacola Downtown` // The Location that appears on the forecast. You can do ${locationn} for the city name above
 var almanacstationname = "" /* The Name that appears on the Almanac Slide. Leave blank if 
 you want to automatically set the name of the station */
 var units = "e" // The displayed. e is imperial, m is metric, h is hybrid, s is (the) kelvin. Default is e.
 // This is the message that aUnits ppears on the LDL Bar.
-var marquee_message = "Ah yeahh, let's hope it snow's in Pensacola lol"
+var marquee_message = "Hope you Enjoy OPENSTAR"
 
 
  var country = "US" // Two Letter Country Code. Some Countries are not supported. https://www.ibm.com/docs/en/environmental-intel-suite?topic=apis-alert-details
